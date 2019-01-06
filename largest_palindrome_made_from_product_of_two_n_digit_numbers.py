@@ -2,6 +2,8 @@
 #A palindromic number reads the same both ways. The largest palindrome made from the product of two 2-digit numbers is 9009 = 91 × 99.
 #Find the largest palindrome made from the product of two 3-digit numbers.
 
+
+#We don't need this in isPalindrome
 def num_digits_in(num):
     num_cpy = num
     num_digits = 0
@@ -11,31 +13,12 @@ def num_digits_in(num):
     return num_digits
 
 def isPalindrome(product):
-
-    num_digits = num_digits_in(product)
-    partition = int(num_digits/2)
-
-    if num_digits % 2 == 0:
-
-        left_half = int(product / (10 ** partition))
-        right_half = str(product - left_half * (10 ** partition))[::-1]
-        left_half = str(left_half)
-
-        #problem i ran into is when i get something like 9009 the right side after % doesnt't have 09. Instead it had only 9
-        #which was a problem which is why I did a little padding myself by adding the right amount of zeros at the end
-        #After reversing
-        right_half += (len(left_half) - len(right_half)) * '0'
-        
-        if left_half == right_half:
-            return True
-    else:
-        left_half = str(int(product / (10 ** (partition + 1))))
-        right_half = str(product % (10 ** (partition)))
-        right_half += (len(left_half) - len(right_half)) * '0'
-        if left_half == right_half:
-            return True
-
+    #Improvement here: Credits internet
+    product_cpy = str(product)
+    if str(product) == product_cpy[::-1]:
+        return True
     return False
+    
 
 def largest_palindrome_made_from_product_of_two_n_digit_numbers(n_digit_number1, n_digit_number2):
 
