@@ -56,15 +56,37 @@ print(palindrome('helleh'))
 import string
 
 def ispangram(str1, alphabet=string.ascii_lowercase):
-    for char in str1.lower():
+
+    # Convert all the character into lower case
+    # Then create a set of those character so that we don't check for the same element repeatedly
+    # Then check if char is in alphabet which implies that the character we are looking at is an alphabet
+    # Then get the index of the alphabet in alphabet string
+    # Now we need to remove this char from alphabet
+    # In order to do that we have to check if the char is at the end of the string
+    # If it is then we just go to the else clause
+    # If it isn't then we check if the length of alphabet is 1. This would mean we have 
+    # all the characters from A - Z and we return True
+    # Lastly if none of the above
+    # We change the remove that char from the alphabet as we did in if clause
+    # If we go through the entire for loop that means that len(alphabet) > 1 after removing the char
+    # which implies that some alphabets are missing from str1 which implies that it isn't a pangram
+    # which is why we return False at the end)
+    for char in set(str1.lower()):
+
         if char in alphabet:
             char_index = alphabet.index(char)
+
             if char_index + 1 < len(alphabet):
                 alphabet = alphabet[:char_index] + alphabet[char_index + 1]
-            else:
+            elif len(alphabet) == 1:
                 return True
+            else:
+                alphabet = alphabet[:char_index]
+
     return False
 
 print(ispangram("The quick brown fox jumps over the lazy dog"))
 print(ispangram("The quick brown fox "))
+print(ispangram(string.ascii_lowercase))
+print(ispangram(string.ascii_uppercase))
 
